@@ -9,7 +9,7 @@ const antTheme = {
     },
     Menu: {
       itemSelectedColor: "var(--color-menu-item)",
-      itemHoverColor: "var(--color-menu-item)",
+      // itemHoverColor: "var(--color-menu-item)",
       itemSelectedBg: "var(--color-main)",
     },
     Table: {

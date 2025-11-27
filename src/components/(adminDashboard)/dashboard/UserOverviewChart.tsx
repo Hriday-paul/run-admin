@@ -32,9 +32,9 @@ const UserOverviewChart = () => {
 
 
   return (
-    <div className="bg-secondary-color rounded-lg p-5 shadow border border-main-color">
+    <div className="bg-white rounded-lg p-5 border border-stroke">
       <div className="flex lg:flex-wrap xl:flex-nowrap justify-between items-center mb-10 gap-2">
-        <h1 className="text-xl font-medium text-main-color">Users summery</h1>
+        <h1 className="text-xl font-medium text-black">Users Join Overview</h1>
 
         <div className="space-x-3">
           <Select
@@ -48,7 +48,9 @@ const UserOverviewChart = () => {
 
       <ResponsiveContainer width="100%" height={300}>
         <BarChart
-          data={(isSuccess && data) ? data?.data : []}
+          data={(isSuccess && data) ? data?.data?.map(i=>{
+            return {month : i.month?.substring(0, 3), userCount : i?.userCount}
+          }) : []}
           margin={{
             top: 0,
             right: 0,
@@ -91,7 +93,7 @@ const UserOverviewChart = () => {
             barSize={40}
             radius={2}
             background={false}
-            dataKey="total"
+            dataKey="userCount"
             fill="var(--color-main)"
           />
         </BarChart>

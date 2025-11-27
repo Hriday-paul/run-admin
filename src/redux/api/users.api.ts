@@ -15,7 +15,7 @@ const UsersApi = baseApi.injectEndpoints({
         }),
 
 
-        block_unblock: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, { userId: string, status: 1 | 0 }>({
+        block_unblock: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, { userId: number, status: boolean }>({
             query: ({ userId, status }) => ({
                 url: `/users/status/${userId}`,
                 method: "PATCH",

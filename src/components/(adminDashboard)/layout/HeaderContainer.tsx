@@ -17,7 +17,7 @@ const HeaderContainer = ({ collapsed, setCollapsed }: TheaderProps) => {
         alignItems: "center",
         color: "#3A3C3B",
         paddingInline: "0",
-        borderBottom: "1px solid #824902",
+        borderBottom: "1px solid #E2E8F0",
       }}
     >
       <Navbar collapsed={collapsed} setCollapsed={setCollapsed}></Navbar>

@@ -21,7 +21,7 @@ const LatestUser = () => {
       render: (text, record) => (
         <div className="flex items-center gap-x-1">
           <Image
-            src={record?.image || "/empty-user.png"}
+            src={record?.picture?.url || "/empty-user.png"}
             alt="profile-picture"
             width={40}
             height={40}
@@ -34,11 +34,14 @@ const LatestUser = () => {
     {
       title: "Email",
       dataIndex: "email",
+      render(value) {
+        return (value && value != "") ? value : "N/A"
+      },
     },
 
     {
       title: "Phone number",
-      dataIndex: "contact",
+      dataIndex: "phone",
       render(value) {
         return (value && value != "") ? value : "N/A"
       },
@@ -50,21 +53,23 @@ const LatestUser = () => {
     }
   ];
 
-  if(isError){
+  if (isError) {
     return <ErrorComponent />
   }
 
   return (
-    <div className="bg-section-bg rounded-md shadow-md border border-main-color p-2">
-      <h3 className="text-xl text-main-color px-5 pb-5">Recent Joined Users</h3>
-      <Table<IUser>
-        columns={columns}
-        dataSource={data?.data?.data}
-        loading={isLoading || isFetching}
-        pagination={false}
-        rowKey={(record) => record?._id}
-        scroll={{ x: "max-content" }}
-      ></Table>
+    <div >
+      <h3 className="text-lg font-medium text-black px-5 pb-5">Recent Joined Users</h3>
+      <div className="bg-white rounded-md border border-stroke p-2">
+        <Table<IUser>
+          columns={columns}
+          dataSource={data?.data?.data}
+          loading={isLoading || isFetching}
+          pagination={false}
+          rowKey={(record) => record?.id}
+          scroll={{ x: "max-content" }}
+        ></Table>
+      </div>
     </div>
   );
 };

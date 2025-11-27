@@ -29,7 +29,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
 
   useEffect(() => {
     if (isSuccess) {
-      dispatch(addUserDetails({ name: res?.data?.first_name, role: res?.data?.role, profilePicture: res?.data?.image || "/empty-user.png" }));
+      dispatch(addUserDetails({ name: res?.data?.first_name, role: res?.data?.auth?.role, profilePicture: res?.data?.picture?.url || "/empty-user.png" }));
     }
     if (isError) {
       dispatch(logoutUser())

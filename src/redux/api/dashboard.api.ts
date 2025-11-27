@@ -16,7 +16,7 @@ const DashboardApi = baseApi.injectEndpoints({
         }),
 
         userChart: builder.query<
-            { message: string; data: { month: string, total: number }[] },
+            { message: string; data: { month: string, userCount: number }[] },
             {}
         >({
             query: (query) => ({

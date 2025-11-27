@@ -9,7 +9,7 @@
   --foreground: #F8F9FA;
   --color-main: #E20101;
   --color-secondary: #FFFFFF;
-  --color-main-bg: #fff;
+  --color-main-bg: #F8F9FA;
   --color-section-bg: #FFFFFF;
   --color-menu-item: #fff;
   --color-text-color: #333333;
@@ -42,7 +42,7 @@ body {
 /* ---------------sidebar bg color------------ */
 
 .ant-menu-item{
-  @apply !p-6 !bg-[#8249021A]
+  @apply !p-6
 }
 
 .ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
@@ -51,20 +51,6 @@ body {
 
 .ant-menu-title-content{
   @apply !text-[#333333]
-}
-
-.ant-menu-item:hover{
-  @apply !bg-main-color
-}
-
-.ant-menu-submenu{
-  @apply !bg-[#8249021A]
-}
-.ant-menu-sub .ant-menu-item{
-  @apply !bg-transparent
-}
-.ant-menu-sub .ant-menu-item-selected{
-  @apply !bg-main-color
 }
 
 .ant-menu-item-selected{

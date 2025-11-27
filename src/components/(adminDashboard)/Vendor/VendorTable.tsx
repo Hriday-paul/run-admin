@@ -18,12 +18,12 @@ import { IUser } from "@/redux/types";
 import moment from "moment";
 import { MdBlockFlipped } from "react-icons/md";
 
-const UsersTable = () => {
+const VendorTable = () => {
   const [handleStatusUpdate] = useBlock_unblockMutation();
   const [page, setPage] = useState(1);
   const limit = 10
   const [searchText, setSearchText] = useState("");
-  const query: { page: number, limit: number, searchTerm: string, role : String } = { page, limit, searchTerm: searchText, role : "User" };
+  const query: { page: number, limit: number, searchTerm: string, role : String } = { page, limit, searchTerm: searchText, role : "Vendor" };
   const { data, isLoading, isFetching } = useAllusersQuery(query)
 
   const columns: TableColumnsType<IUser> = [
@@ -89,8 +89,8 @@ const UsersTable = () => {
           </Link> */}
 
           <Popconfirm
-            title="Block the user"
-            description={`Are you sure to ${record?.auth?.status ? "block" : "unblock"} this user?`}
+            title="Block the vendor"
+            description={`Are you sure to ${record?.auth?.status ? "block" : "unblock"} this vendor?`}
             onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
             okText="Yes"
             cancelText="No"
@@ -115,7 +115,7 @@ const UsersTable = () => {
         await handleStatusUpdate({ userId: id, status }).unwrap();
       }
 
-      toast.success(`User ${status ? "unblock" : "block"} successfully`)
+      toast.success(`Vendor ${status ? "unblock" : "block"} successfully`)
 
     } catch (err: any) {
       toast.error(err?.data?.message || "something went wrong, try again")
@@ -126,11 +126,11 @@ const UsersTable = () => {
     <div>
 
       <div className="flex justify-between items-center p-5 rounded-t-xl">
-        <h1 className="  text-xl text-text-color font-semibold">Users List</h1>
+        <h1 className="  text-xl text-text-color font-semibold">Vendor List</h1>
 
         <Input
           className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
-          placeholder="Search Users..."
+          placeholder="Search..."
           onChange={(e) => setSearchText(e?.target?.value)}
           prefix={<Search size={20} color="var(--color-main)"></Search>}
         ></Input>
@@ -157,4 +157,4 @@ const UsersTable = () => {
   );
 };
 
-export default UsersTable;
+export default VendorTable;

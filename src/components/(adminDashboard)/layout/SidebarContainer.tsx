@@ -3,7 +3,7 @@ import { Button, Menu, MenuProps } from "antd";
 import Sider from "antd/es/layout/Sider";
 import Image from "next/image";
 import Link from "next/link";
-import logo from "@/assets/logo.png";
+import logo from "../../../../public/logo.png";
 import { navLinks } from "@/utils/navLinks";
 import { usePathname, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -36,17 +36,17 @@ const SidebarContainer = ({ collapsed }: { collapsed: boolean }) => {
         maxHeight: "100vh",
         overflow: "auto",
         // boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)"
-        borderRight: "1px solid #824902",
+        borderRight: "1px solid #E2E8F0",
       }}
     >
       <div className="demo-logo-vertical" />
       {/* logo  */}
       <div className="my-10 flex flex-col justify-center items-center gap-y-5 ">
-        <Link href={"/"} className={`bg-main-color rounded-full ${collapsed ? "p-2" : "p-4"}`}>
+        <Link href={"/"} >
           <Image
             src={logo}
             alt="logo_Image"
-            className={` ${collapsed ? "size-12" : "size-32"}`}
+            className={`${collapsed ? "h-4 w-auto" : "h-10 w-auto"}`}
           />
         </Link>
       </div>

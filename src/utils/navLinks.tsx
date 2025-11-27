@@ -19,9 +19,9 @@ export const navLinks = [
     label: <Link href={"/user"}>Users</Link>,
   },
   {
-    key: "store-management",
+    key: "vendors",
     icon: <HiOutlineUserPlus size={24} />,
-    label: <Link href={"/store-management"}>Store Management</Link>,
+    label: <Link href={"/vendors"}>Vendors</Link>,
   },
   {
     key: "brands",

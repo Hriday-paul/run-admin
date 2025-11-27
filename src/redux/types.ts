@@ -1,19 +1,29 @@
 export type IUser = {
-    "first_name": string,
-    "last_name": string,
-    "gender": string,
-    "email": string,
-    "role": "admin",
-    "location": string,
-    "isDeleted": boolean,
-    "isVerified": boolean,
-    "status": 1 | 0,
-    "contact"?: string
-    "_id": string,
-    image?: string,
-    "createdAt": "2025-07-06T06:40:09.654Z",
-    "updatedAt": "2025-07-06T06:40:09.654Z",
-    "__v": 0,
+    "id": number,
+    "email": string | null,
+
+    status: boolean,
+    phone: string,
+    first_name: string,
+    last_name: string | null,
+    whatsapp: string | null
+    picture: { url: string, key: string } | null
+    auth: {
+        role: "User" | "Vendor",
+        status : boolean
+    },
+    address: string | null,
+
+    division: string | null,
+    district: string | null,
+    upzilla: string | null,
+
+    facebook: string | null
+    twitter: string | null,
+    youtube: string | null,
+    instagram: string | null
+    linkedin: string | null
+
 }
 
 export type TService = {
@@ -53,6 +63,8 @@ export interface IEarning {
 
 export interface IAdminStats {
     "totalUsers": number,
+    totalEarnimgs : number,
+    totalVendors  :number
 }
 export interface INotification {
     _id : string
