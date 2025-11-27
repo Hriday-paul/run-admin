@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #F8F9FA;
+  --color-main: #E20101;
+  --color-secondary: #FFFFFF;
+  --color-main-bg: #fff;
+  --color-section-bg: #FFFFFF;
+  --color-menu-item: #fff;
+  --color-text-color: #333333;
+  --color-primary-green: #41ab5d;
+  --color-primary-red: #b84d4d;
+  --color-primary-gray: #323232;
+}
+
+* {
+  font-family: "Manrope", sans-serif;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.ant-menu-title-content {
+  font-size: 18px;
+  color: #959595;
+  padding-left: 10px;
+}
+
+.ant-menu-item > svg {
+  @apply !text-[#333333]
+}
+
+
+/* ---------------sidebar bg color------------ */
+
+.ant-menu-item{
+  @apply !p-6 !bg-[#8249021A]
+}
+
+.ant-menu-inline.ant-menu-root .ant-menu-submenu-title{
+  @apply !p-6
+}
+
+.ant-menu-title-content{
+  @apply !text-[#333333]
+}
+
+.ant-menu-item:hover{
+  @apply !bg-main-color
+}
+
+.ant-menu-submenu{
+  @apply !bg-[#8249021A]
+}
+.ant-menu-sub .ant-menu-item{
+  @apply !bg-transparent
+}
+.ant-menu-sub .ant-menu-item-selected{
+  @apply !bg-main-color
+}
+
+.ant-menu-item-selected{
+  @apply !bg-main-color
+}
+
+/* ---------------sidebar bg color------------ */
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+.quill {
+  border: "2px solid #fff" !important;
+}
+
+.ql-toolbar {
+  margin-bottom: 12px !important;
+  display: flex;
+  justify-content: end;
+  border: none !important;
+}
+
+.ql-formats {
+  background-color: white;
+  border-radius: 3px;
+}
+
+.ql-container {
+  /* background-color: white; */
+  color: var(--color-text-color) !important;
+  height: 620px !important;
+  border: none !important;
+  border-radius: 10px;
+  overflow: auto !important;
+}
+
+.ant-menu-item-selected > span > a {
+  color: var(--color-menu-item) !important;
+  font-size: 18px;
+}
+
+.ant-menu-item-selected > svg {
+  color: var(--color-menu-item) !important;
+}
+
+.ant-menu-submenu-arrow{
+  @apply !text-text-color
+}
+
+/* ant design upload related style */
+.ant-upload-list-item {
+  background-color: var(--color-main) !important;
+  color: #ffffff !important;
+  max-width: 200px !important;
+}
+.anticon-delete > svg {
+  fill: red !important;
+}
+
+/* .ant-dropdown-menu-item-selected {
+  background-color: var(--color-main) !important;
+  color: #ffffff !important;
+} */
+
+/* ============== change default eye icon color in  password input field =================================== */
+/* .ant-input-password-icon svg {
+  fill: #ffffff !important;
+} */
+
+.month-select .anticon-down svg {
+  fill: var(--color-main);
+  background-color: #fff;
+  padding: "40px";
+  border-radius: "10px";
+}
