@@ -10,7 +10,7 @@ export type IUser = {
     picture: { url: string, key: string } | null
     auth: {
         role: "Admin",
-        status : boolean
+        status: boolean
     },
     address: string | null,
 
@@ -22,8 +22,21 @@ export type IUser = {
     twitter: string | null,
     youtube: string | null,
     instagram: string | null
-    linkedin: string | null
+    linkedin: string | null,
 
+    addManager : AdManager | null
+}
+
+export type AdManager = {
+    expiredAt : Date
+    add_count: number,
+    postedAd: number,
+
+    feature_count: number,
+    featured: number,
+
+    bump_count: number,
+    bumped: number
 }
 
 export interface IDivision {
@@ -80,11 +93,11 @@ export interface IEarning {
 
 export interface IAdminStats {
     "totalUsers": number,
-    totalEarnimgs : number,
-    totalVendors  :number
+    totalEarnimgs: number,
+    totalVendors: number
 }
 export interface INotification {
-    _id : string
+    _id: string
     title: string,
     message: string,
     "isRead": boolean,
@@ -154,7 +167,7 @@ export interface IReport {
 }
 
 export interface IBrand {
-    _id : string,
+    _id: string,
     name: string,
     status: "pending" | "approved" | "rejected"
 }

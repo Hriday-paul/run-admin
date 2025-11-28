@@ -1,4 +1,4 @@
-import { IMeta, IUser } from "../types";
+import { AdManager, IMeta, IUser } from "../types";
 import baseApi from "./baseApi";
 
 const UsersApi = baseApi.injectEndpoints({
@@ -32,9 +32,17 @@ const UsersApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["users"]
         }),
+        vendorAdManage: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, {id : number, body : AdManager}>({
+            query: ({body, id}) => ({
+                url: `/users/manage-access/${id}`,
+                method: "PUT",
+                body
+            }),
+            invalidatesTags: ["users"]
+        }),
 
 
     }),
 });
 
-export const { useAllusersQuery, useBlock_unblockMutation, useAddVendorMutation } = UsersApi;
+export const { useAllusersQuery, useBlock_unblockMutation, useAddVendorMutation, useVendorAdManageMutation} = UsersApi;

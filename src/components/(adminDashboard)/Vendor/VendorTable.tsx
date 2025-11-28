@@ -1,5 +1,6 @@
 "use client";
 import {
+  Button,
   Image,
   Input,
   Pagination,
@@ -18,6 +19,7 @@ import { IUser } from "@/redux/types";
 import moment from "moment";
 import { MdBlockFlipped } from "react-icons/md";
 import AddVendor from "./AddVendor";
+import VendorManageSubs from "./VendorManageSubs";
 
 const VendorTable = () => {
   const [handleStatusUpdate] = useBlock_unblockMutation();
@@ -25,7 +27,10 @@ const VendorTable = () => {
   const limit = 10
   const [searchText, setSearchText] = useState("");
   const query: { page: number, limit: number, searchTerm: string, role: String } = { page, limit, searchTerm: searchText, role: "Vendor" };
-  const { data, isLoading, isFetching } = useAllusersQuery(query)
+  const { data, isLoading, isFetching } = useAllusersQuery(query);
+
+  const [open, setOpen] = useState(false);
+  const [defaultData, setDefaultData] = useState<IUser | null>(null)
 
   const columns: TableColumnsType<IUser> = [
     {
@@ -102,6 +107,13 @@ const VendorTable = () => {
               </button>
             </Tooltip>
           </Popconfirm>
+
+          <Button size='small' type='default' onClick={() => {
+            setOpen(true)
+            setDefaultData(record)
+          }}>Manage</Button>
+
+
         </div>
       ),
     },
@@ -156,6 +168,8 @@ const VendorTable = () => {
         ></Table>
 
       </div>
+
+      {defaultData && <VendorManageSubs open={open} setOpen={setOpen} defaultData={defaultData} />}
 
     </div>
   );

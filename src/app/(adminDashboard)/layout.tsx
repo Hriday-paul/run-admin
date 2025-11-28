@@ -13,7 +13,7 @@ const { Content } = Layout;
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   // Check if small screen
   const screenSizeLessThan1300 = useMediaQuery(
-    "only screen and (max-width: 1300px)"
+    "only screen and (max-width: 1000px)"
   );
 
   const [collapsed, setCollapsed] = useState(

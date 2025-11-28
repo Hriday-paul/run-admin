@@ -1,7 +1,6 @@
 import { useAllDivisionsQuery, useDistrictsByDivisionQuery } from '@/redux/api/locations.api';
 import { useAddVendorMutation } from '@/redux/api/users.api';
 import { Button, Form, FormProps, Input, InputNumber, Modal, Select } from 'antd'
-import { useForm } from 'antd/es/form/Form';
 import React, { useState } from 'react'
 import { ImSpinner3 } from 'react-icons/im';
 import { RiCloseLargeLine } from 'react-icons/ri';
