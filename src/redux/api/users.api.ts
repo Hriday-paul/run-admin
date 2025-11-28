@@ -23,9 +23,18 @@ const UsersApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["users"]
         }),
+        
+        addVendor: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, any>({
+            query: (body) => ({
+                url: `/users/add-vendor`,
+                method: "POST",
+                body
+            }),
+            invalidatesTags: ["users"]
+        }),
 
 
     }),
 });
 
-export const { useAllusersQuery, useBlock_unblockMutation } = UsersApi;
+export const { useAllusersQuery, useBlock_unblockMutation, useAddVendorMutation } = UsersApi;

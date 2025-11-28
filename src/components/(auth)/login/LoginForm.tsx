@@ -43,7 +43,7 @@ const LoginForm = () => {
         secure: config.hasSSL,
       });
 
-      dispatch(addUserDetails({ name: res?.data?.user?.first_name, role: res?.data?.user?.role, profilePicture: res?.data?.user?.image || "/empty-user.png" }));
+      dispatch(addUserDetails({ name: res?.data?.user?.first_name, role: res?.data?.user?.auth?.role, profilePicture: res?.data?.user?.picture?.url || "/empty-user.png" }));
 
       toast.success('Signin successfully');
 

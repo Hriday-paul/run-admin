@@ -10,20 +10,21 @@ import {
   Tooltip,
 } from "antd";
 import { CgUnblock } from "react-icons/cg";
-import {Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useAllusersQuery, useBlock_unblockMutation } from "@/redux/api/users.api";
 import { IUser } from "@/redux/types";
 import moment from "moment";
 import { MdBlockFlipped } from "react-icons/md";
+import AddVendor from "./AddVendor";
 
 const VendorTable = () => {
   const [handleStatusUpdate] = useBlock_unblockMutation();
   const [page, setPage] = useState(1);
   const limit = 10
   const [searchText, setSearchText] = useState("");
-  const query: { page: number, limit: number, searchTerm: string, role : String } = { page, limit, searchTerm: searchText, role : "Vendor" };
+  const query: { page: number, limit: number, searchTerm: string, role: String } = { page, limit, searchTerm: searchText, role: "Vendor" };
   const { data, isLoading, isFetching } = useAllusersQuery(query)
 
   const columns: TableColumnsType<IUser> = [
@@ -65,7 +66,7 @@ const VendorTable = () => {
     },
     {
       title: "Status",
-      dataIndex: ["auth","status"],
+      dataIndex: ["auth", "status"],
       render(value) {
         return <Tag color={value ? "green" : "red"}>{value ? "Active" : "Blocked"}</Tag>
       },
@@ -128,30 +129,33 @@ const VendorTable = () => {
       <div className="flex justify-between items-center p-5 rounded-t-xl">
         <h1 className="  text-xl text-text-color font-semibold">Vendor List</h1>
 
-        <Input
-          className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
-          placeholder="Search..."
-          onChange={(e) => setSearchText(e?.target?.value)}
-          prefix={<Search size={20} color="var(--color-main)"></Search>}
-        ></Input>
+        <div className="flex flex-row gap-x-2 items-center">
+          <Input
+            className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
+            placeholder="Search..."
+            onChange={(e) => setSearchText(e?.target?.value)}
+            prefix={<Search size={20} color="var(--color-main)"></Search>}
+          ></Input>
+          <AddVendor />
+        </div>
 
       </div>
 
-        <div className="bg-white rounded-md border border-stroke">
+      <div className="bg-white rounded-md border border-stroke">
 
-          <Table<IUser>
-            columns={columns}
-            dataSource={data?.data?.data}
-            loading={isLoading || isFetching}
-            pagination={false}
-            rowKey={(record) => record?.id}
-            footer={() =>
-              <Pagination defaultCurrent={page} total={data?.data?.meta?.total} pageSize={limit} align="end" showSizeChanger={false} onChange={(page) => setPage(page)} />
-            }
-            scroll={{ x: "max-content" }}
-          ></Table>
+        <Table<IUser>
+          columns={columns}
+          dataSource={data?.data?.data}
+          loading={isLoading || isFetching}
+          pagination={false}
+          rowKey={(record) => record?.id}
+          footer={() =>
+            <Pagination defaultCurrent={page} total={data?.data?.meta?.total} pageSize={limit} align="end" showSizeChanger={false} onChange={(page) => setPage(page)} />
+          }
+          scroll={{ x: "max-content" }}
+        ></Table>
 
-        </div>
+      </div>
 
     </div>
   );

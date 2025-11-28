@@ -9,7 +9,7 @@ export type IUser = {
     whatsapp: string | null
     picture: { url: string, key: string } | null
     auth: {
-        role: "User" | "Vendor",
+        role: "Admin",
         status : boolean
     },
     address: string | null,
@@ -24,6 +24,23 @@ export type IUser = {
     instagram: string | null
     linkedin: string | null
 
+}
+
+export interface IDivision {
+    "id": number,
+    "name": string,
+    "bn_name": string,
+    "lat": number,
+    "long": number
+}
+
+export interface IDistrict {
+    "id": number,
+    "division_id": number,
+    "name": string,
+    "bn_name": string,
+    "lat": number,
+    "long": number
 }
 
 export type TService = {
