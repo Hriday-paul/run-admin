@@ -24,11 +24,11 @@ export type IUser = {
     instagram: string | null
     linkedin: string | null,
 
-    addManager : AdManager | null
+    addManager: AdManager | null
 }
 
 export type AdManager = {
-    expiredAt : Date
+    expiredAt: Date
     add_count: number,
     postedAd: number,
 
@@ -56,25 +56,122 @@ export interface IDistrict {
     "long": number
 }
 
-export type TService = {
-    "_id": string,
-    "name": string,
-    "icon": string,
-    "isActive": boolean,
+export type TPayment = {
+    id: number
+    userId: number
+    user: IUser
+    amount: number
+    paid_amount: number
+    isPaid: boolean
+    subscriptionId: number | null
+    subscription: Subscription | null
+
+    order : IOrder | null
+
+    transactionId: string
+    createdAt: Date
+    updatedAt: Date
+
+    type : "subscription" | "vehicle_process" | "document_download"
 }
 
-export type TSubService = {
-    "_id": string,
-    "web_name": string,
-    "web_link": string,
-    "web_img": string,
-    "pet_type": "cat" | "dog" | "both",
-    "description": string,
-    "location": string,
-    "service": string,
-    "serviceName": string,
-    position: number
+export interface OrderFields {
+  id : number,
+  orderId : number
+  requirementId : number | null
+
+  fileId : number
+  File  :{key : string, url : string}
+  fieldType : FieldType
+  data : string | null
 }
+
+enum FieldType {
+  Text,
+  File,
+  Date,
+  Textarea,
+}
+
+export interface IOrder {
+    id: number
+
+    user: IUser
+
+    status: "PENDING" | "PROCESSING" | "COMPLETED"
+
+    fields: OrderFields[] // uploaded files by the user
+    isPaid: boolean
+
+    otherFiles: string[]
+
+    serviceId: number
+    service: DocumentService
+
+    createdAt: Date
+    updatedAt: Date
+}
+
+export interface DocumentService {
+  id  : number
+  name : string
+  price : number
+  description : string | null
+  requirements : string[]
+  icon        : String | null
+  category : ServiceCategory
+}
+
+export enum ServiceCategory {
+    Car_Owner_Check = "Car_Owner_Check",
+    Car_Document_Calculation = "Car_Document_Calculation",
+    Fitness_Appointment = "Fitness_Appointment",
+    Owner_File_Appointment_Scan = "Owner_File_Appointment_Scan",
+    Larner_Card = "Larner_Card",
+    New_Car_Import_Check = "New_Car_Import_Check",
+    Owner_File_Process = "Owner_File_Process",
+    Tin_Certificate = "Tin_Certificate",
+    License_Renew = "License_Renew",
+    License_Exam_Date = "License_Exam_Date",
+    Car_Document_Payment = "Car_Document_Payment",
+    Online_Gd = "Online_Gd",
+    Advice = "Advice"
+}
+
+export interface Subscription {
+    id: number;
+    userId: number;
+    packageId: number;
+    transactionId: string;
+    autoRenewal: boolean;
+    renewalDate?: Date | null;
+    lastRenewalDate: Date;
+    renewalCount: number;
+    isPaid: boolean;
+    amount: number;
+    createdAt: Date;
+    updatedAt: Date;
+    user: IUser;
+    package: Package;
+}
+
+
+export interface Package {
+    id: number;
+    name: string;
+    description?: string | null;
+    duration: number;
+    price: number;
+    discount?: string | null;
+    top_add_count: number;
+    bumpup_count: number;
+    feature_count: number;
+    add_count: number;
+    createdAt: Date;
+    updatedAt: Date;
+    isDeleted: boolean;
+}
+
 
 export interface IMeta {
     "page": number,

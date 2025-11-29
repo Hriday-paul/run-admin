@@ -109,8 +109,8 @@ const VendorTable = () => {
           </Popconfirm>
 
           <Button size='small' type='default' onClick={() => {
-            setOpen(true)
             setDefaultData(record)
+            setOpen(true)
           }}>Manage</Button>
 
 

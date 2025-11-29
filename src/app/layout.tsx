@@ -16,10 +16,10 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: {
-    default: "Admin Dashboard | Forager",
-    template: "%s | Forager",
+    default: "Admin Dashboard | Runbd",
+    template: "%s | Runbd",
   },
-  description: "This is Official Application Dashboard for Forager",
+  description: "This is Official Application Dashboard for Runbd",
 };
 
 export default function RootLayout({

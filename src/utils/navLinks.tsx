@@ -24,9 +24,9 @@ export const navLinks = [
     label: <Link href={"/vendors"}>Vendors</Link>,
   },
   {
-    key: "brands",
+    key: "payments",
     icon: <FaRegRectangleList size={24} />,
-    label: <Link href={"/brands"}>Brands</Link>,
+    label: <Link href={"/payments"}>Payments</Link>,
   },
   {
     key: "supports",
