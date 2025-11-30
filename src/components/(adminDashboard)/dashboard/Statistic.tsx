@@ -12,7 +12,7 @@ const Statistic = () => {
     <div className="flex justify-between items-center gap-5 flex-wrap text-text-color ">
       {/* ====================================== Total User ========================================== */}
 
-      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1">
+      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1 min-w-64">
         <div className="flex items-center gap-4">
           <div className="bg-main-color rounded-full p-4 flex items-center justify-center">
             <Users className="w-6 h-6 text-white" />
@@ -26,7 +26,7 @@ const Statistic = () => {
 
 
       {/* ====================================== Total Vendor ========================================== */}
-      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1">
+      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1 min-w-64">
         <div className="flex items-center gap-4">
           <div className="bg-[#3D5473] rounded-full p-4 flex items-center justify-center">
             <Users className="w-6 h-6 text-white" />
@@ -39,7 +39,7 @@ const Statistic = () => {
       </div>
 
       {/* ====================================== Total Pets ========================================== */}
-      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1">
+      <div className="bg-section-bg rounded-3xl border border-stroke p-8 flex-1 min-w-64">
         <div className="flex items-center gap-4">
           <div className="bg-main-color rounded-full p-4 flex items-center justify-center">
             <HandCoins className="w-6 h-6 text-white" />

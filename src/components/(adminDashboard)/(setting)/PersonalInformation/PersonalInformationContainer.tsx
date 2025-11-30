@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FiEdit } from "react-icons/fi";
-import profile from "@/assets/image/adminProfile.png";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Camera, LoaderCircle, Trash2, X } from "lucide-react";

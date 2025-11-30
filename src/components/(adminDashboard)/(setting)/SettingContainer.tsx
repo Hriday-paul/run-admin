@@ -12,19 +12,7 @@ const links = [
   {
     lable: "Change Password",
     path: "changePassword",
-  },
-  {
-    lable: "Terms & Condition",
-    path: "terms-condition",
-  },
-  {
-    lable: "Privacy Policy",
-    path: "privacy-policy",
-  },
-  {
-    lable: "About Us",
-    path: "about-us",
-  },
+  }
 ];
 
 const SettingContainer = () => {
