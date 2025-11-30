@@ -91,7 +91,7 @@ const baseQueryWithReauth: typeof baseQuery = async (
 
 const baseApi = createApi({
     reducerPath: 'api',
-    tagTypes: ['user', "users", "payments", "privacy", "terms", "about", "notification", "stores", "contacts", "reports", "brands"],
+    tagTypes: ['user', "users", "payments", "orders", "packages", "privacy", "terms", "about", "notification", "stores", "contacts", "reports", "brands"],
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
 

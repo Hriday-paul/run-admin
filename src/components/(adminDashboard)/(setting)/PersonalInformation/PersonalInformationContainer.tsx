@@ -16,9 +16,7 @@ import { ImSpinner3 } from "react-icons/im";
 type FieldType = {
   name: string,
   email: string,
-  contact: string,
-  location?: string,
-  webLink?: string,
+  phone: string,
 }
 
 const PersonalInformationContainer = () => {
@@ -32,10 +30,10 @@ const PersonalInformationContainer = () => {
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     try {
       const form = new FormData();
-      form.append('data', JSON.stringify({ first_name: values?.name, last_name: "", contact: values?.contact}))
+      form.append('data', JSON.stringify({ first_name: values?.name, last_name: "", email: values?.email }))
 
       if (file) {
-        form.append("image", file)
+        form.append("picture", file)
       }
 
       await updateProfile({ data: form }).unwrap();
@@ -101,7 +99,7 @@ const PersonalInformationContainer = () => {
               <div className="space-y-2 relative">
                 <div className="relative group">
                   <Image
-                    src={file ? URL.createObjectURL(file) : data?.data?.image || "/empty-user.png"}
+                    src={file ? URL.createObjectURL(file) : data?.data?.picture?.url || "/empty-user.png"}
                     alt="adminProfile"
                     width={1200}
                     height={1200}
@@ -153,8 +151,7 @@ const PersonalInformationContainer = () => {
                 initialValues={{
                   name: data?.data?.first_name,
                   email: data?.data?.email,
-                  contact: data?.data?.contact,
-                  location: data?.data?.location
+                  phone: data?.data?.phone
                 }}
               >
                 {/*  input  name */}
@@ -167,23 +164,25 @@ const PersonalInformationContainer = () => {
                 </Form.Item>
 
                 {/*  input  email */}
-                <Form.Item<FieldType> label="Email" name="email" rules={[{ required: true, message: "Email name is required" }]}>
+                <Form.Item<FieldType> label="Email" name="email"
+                //  rules={[{ required: true, message: "Email name is required" }]}
+                 >
                   <Input
                     size="large"
                     placeholder="Enter email"
-                    readOnly
-                    disabled
+                    readOnly={!edit}
                   ></Input>
                 </Form.Item>
 
                 {/* input  phone number  */}
-                <Form.Item<FieldType> label="Phone Number" name="contact"
-                // rules={[{ required: true, message: "Contact is required" }]}
+                <Form.Item<FieldType> label="Phone Number" name="phone"
+                rules={[{ required: true, message: "Phone is required" }]}
                 >
                   <Input
                     size="large"
                     placeholder="Enter Phone number"
-                    readOnly={!edit}
+                    readOnly
+                    disabled
                   ></Input>
                 </Form.Item>
 

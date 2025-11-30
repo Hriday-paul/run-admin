@@ -1,60 +1,24 @@
-"use client"
 import { Button } from 'antd';
-import { LoaderCircle, SquarePen } from 'lucide-react';
 import React, { useState } from 'react';
 import { Form, FormProps, Input, InputNumber, Modal } from "antd";
 import { RiCloseLargeLine } from "react-icons/ri";
-import Subscriptoncard from './Subscriptoncard';
 import { toast } from 'sonner';
 import { ImSpinner3 } from 'react-icons/im';
-import { useAllPackagesQuery, useCreatePackageMutation } from '@/redux/api/Package.api';
-import ErrorComponent from '@/components/shared/ErrorComponent';
 import { Package } from '@/redux/types';
-
-const SubscriptionContainer = () => {
-
-    const { isLoading, data, isSuccess, isError } = useAllPackagesQuery({});
-
-    return (
-        <div>
-            {
-                isLoading ? <div className='min-h-40 flex items-center justify-center'>
-                    <LoaderCircle size={50} className="text-4xl text-main-color animate-spin" />
-                </div> : <div className='py-5 px-10 mx-auto flex flex-col justify-center max-w-5xl'>
-                    <AddSubscription />
-                    {isSuccess && <div className='flex flex-row gap-5 flex-wrap mt-5 lg:mt-10'>
-                        {
-                            data?.data?.map(pack => {
-                                return <Subscriptoncard key={pack?.id} pack={pack} />
-                            })
-                        }
-                    </div>}
-                    {
-                        isError && <ErrorComponent />
-                    }
-                </div>
-            }
-
-        </div>
-    );
-};
-
-export default SubscriptionContainer;
+import { useUpdatePackageMutation } from '@/redux/api/Package.api';
 
 interface FieldType extends Package { };
 
-const AddSubscription = () => {
+const EditSubscription = ({ defaultValue }: { defaultValue: Package }) => {
 
-    const [form] = Form.useForm();
-    const [handleApiAddSubscription, { isLoading }] = useCreatePackageMutation()
+    const [handleApiupdateSubscription, { isLoading }] = useUpdatePackageMutation()
 
     const [open, setOpen] = useState(false);
 
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
         try {
-            await handleApiAddSubscription(values).unwrap();
-            toast.success("New Package added successfully")
-            form.resetFields();
+            await handleApiupdateSubscription({ body: values, id: defaultValue?.id }).unwrap();
+            toast.success("Plan updated successfully")
         } catch (err: any) {
             toast.error(err?.data?.message || "Something went wrong, try again")
         }
@@ -62,7 +26,9 @@ const AddSubscription = () => {
 
     return (
         <>
-            <Button onClick={() => setOpen(true)} type='primary' size='large' block icon={<SquarePen size={20} />} iconPosition='start'>Create Subscription Plan</Button>
+            <button onClick={() => setOpen(true)} className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 rounded-2xl text-lg duration-200">
+                Edit
+            </button>
 
             <Modal
                 open={open}
@@ -82,13 +48,12 @@ const AddSubscription = () => {
                         </div>
                     </div>
 
-                    <h4 className="text-center text-xl font-medium">{"Add Subscription"}</h4>
+                    <h4 className="text-center text-xl font-medium">{"Edit Plan"}</h4>
 
                     <Form
                         name="basic"
                         style={{ width: '100%' }}
-                        initialValues={{}}
-                        form={form}
+                        initialValues={defaultValue}
                         onFinish={onFinish}
                         autoComplete="off"
                         layout="vertical"
@@ -132,3 +97,5 @@ const AddSubscription = () => {
         </>
     );
 };
+
+export default EditSubscription;

@@ -24,9 +24,18 @@ const DashboardApi = baseApi.injectEndpoints({
                 params: query
             }),
         }),
+        earningChart: builder.query<
+            { message: string; data: { month: string, revenue: number }[] },
+            {}
+        >({
+            query: (query) => ({
+                url: `/dashboard/earningChart`,
+                params: query
+            }),
+        }),
 
 
     }),
 });
 
-export const { useUserStatsQuery, useUserChartQuery } = DashboardApi;
+export const { useUserStatsQuery, useUserChartQuery, useEarningChartQuery } = DashboardApi;

@@ -1,8 +1,6 @@
 "use client";
 import { Avatar, Badge, Flex, Popover } from "antd";
 import { FaBars } from "react-icons/fa6";
-import { IoNotificationsOutline } from "react-icons/io5";
-import avatarImg from "@/assets/image/profile.png";
 
 import Link from "next/link";
 import { Bell, LogOut, User } from "lucide-react";
@@ -12,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { addUserDetails, logoutUser } from "@/redux/slices/userSlice";
 import { RootState } from "@/redux/store";
-import { useNotificationsQuery } from "@/redux/api/notification.api";
+import { useUnreadNotificationCountQuery } from "@/redux/api/notification.api";
 
 type TNavbarProps = {
   collapsed: boolean;
@@ -22,7 +20,7 @@ type TNavbarProps = {
 const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
 
   const { data: res, isSuccess, isError } = useGetUserProfileQuery();
-  const { data: Notification, isSuccess : notiSuccess } = useNotificationsQuery({ isRead: false });
+  const { data: Notification, isSuccess : notiSuccess } = useUnreadNotificationCountQuery();
   const router = useRouter();
 
   const dispatch = useDispatch();
@@ -71,7 +69,7 @@ const Navbar = ({ collapsed, setCollapsed }: TNavbarProps) => {
             <Bell size={24} color="#3A3C3B" />
 
             <Badge
-              count={notiSuccess ? Notification?.data?.meta?.total : 0}
+              count={notiSuccess ? Notification?.data : 0}
               style={{
                 border: "none",
                 boxShadow: "none",

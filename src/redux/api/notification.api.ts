@@ -1,4 +1,4 @@
-import { IBrand, IMeta, INotification } from "../types";
+import { IMeta, INotification } from "../types";
 import baseApi from "./baseApi";
 
 const NotificationApi = baseApi.injectEndpoints({
@@ -9,6 +9,12 @@ const NotificationApi = baseApi.injectEndpoints({
             query: (query) => ({
                 url: '/notifications',
                 params: query
+            }),
+            providesTags: ["notification"]
+        }),
+         unreadNotificationCount: builder.query<{ data:  number }, void>({
+            query: () => ({
+                url: '/notifications/unread-count',
             }),
             providesTags: ["notification"]
         }),
@@ -32,4 +38,4 @@ const NotificationApi = baseApi.injectEndpoints({
     }),
 });
 
-export const {useNotificationsQuery, useReadNotificationMutation, useReadAllNotificationsMutation} = NotificationApi;
+export const {useNotificationsQuery, useReadNotificationMutation, useReadAllNotificationsMutation, useUnreadNotificationCountQuery} = NotificationApi;

@@ -1,7 +1,7 @@
 import { RiDashboardHorizontalFill } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
 import Link from "next/link";
-import { LuUsers } from "react-icons/lu";
+import { LuPackage, LuUsers } from "react-icons/lu";
 import { Bell, BookOpen, Dot, MessageCircleMore } from "lucide-react";
 import { IoMdLogOut } from "react-icons/io";
 import { HiOutlineUserPlus } from "react-icons/hi2";
@@ -29,14 +29,19 @@ export const navLinks = [
     label: <Link href={"/payments"}>Payments</Link>,
   },
   {
+    key: "orders",
+    icon: <BookOpen size={24} />,
+    label: <Link href={"/orders"}>Orders</Link>,
+  },
+  {
+    key: "packages",
+    icon: <LuPackage size={24} />,
+    label: <Link href={"/packages"}>Packages</Link>,
+  },
+  {
     key: "supports",
     icon: <MessageCircleMore size={24} />,
     label: <Link href={"/supports"}>Supports</Link>,
-  },
-  {
-    key: "reportings",
-    icon: <BookOpen size={24} />,
-    label: <Link href={"/reportings"}>Reporting</Link>,
   },
   {
     key: "notifications",

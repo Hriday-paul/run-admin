@@ -1,6 +1,6 @@
 "use client";
 import { Button, Pagination, Spin } from "antd";
-import { LoaderCircle, Trash2 } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useNotificationsQuery, useReadAllNotificationsMutation } from "@/redux/api/notification.api";
 import { toast } from "sonner";
 import Notification from "./Notifications";
@@ -12,7 +12,7 @@ const NotificationContainer = () => {
 
   const [handledeleteNotificationByApi, { isLoading: dltLoading }] = useReadAllNotificationsMutation();
 
-  const { isLoading, isError, data, isSuccess } = useNotificationsQuery({ sort: "-createdAt" });
+  const { isLoading, isError, data, isSuccess } = useNotificationsQuery({});
 
   const handleReadAll = async () => {
     try {
@@ -33,7 +33,7 @@ const NotificationContainer = () => {
     <div>
 
       <div className="flex justify-between items-center px-10 pt-5 rounded-t-xl">
-        <h1 className="text-2xl text-main-color font-extrabold">All Notifications</h1>
+        <h1 className="text-2xl text-main-color font-semibold">All Notifications</h1>
         <Button type="primary" onClick={handleReadAll}> {dltLoading ? <LoaderCircle className='text-white animate-spin' /> : "Mark Read All"}</Button>
       </div>
 

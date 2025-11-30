@@ -1,14 +1,17 @@
 import LatestUser from "@/components/(adminDashboard)/dashboard/LatestUser";
-import Notifications from "@/components/(adminDashboard)/Notifications/Notifications";
 import Statistic from "@/components/(adminDashboard)/dashboard/Statistic";
 import UserOverviewChart from "@/components/(adminDashboard)/dashboard/UserOverviewChart";
+import EarningChart from "@/components/(adminDashboard)/dashboard/EarningChart";
 
 const DashboardPage = () => {
   return (
     <div className="lg:space-y-10 space-y-5 ">
       <Statistic></Statistic>
 
-      <UserOverviewChart />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+        <UserOverviewChart />
+        <EarningChart />
+      </div>
 
       <LatestUser></LatestUser>
 

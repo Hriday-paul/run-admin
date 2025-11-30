@@ -66,31 +66,32 @@ export type TPayment = {
     subscriptionId: number | null
     subscription: Subscription | null
 
-    order : IOrder | null
+    order: IOrder | null
 
     transactionId: string
     createdAt: Date
     updatedAt: Date
 
-    type : "subscription" | "vehicle_process" | "document_download"
+    type: "subscription" | "vehicle_process" | "document_download",
 }
 
 export interface OrderFields {
-  id : number,
-  orderId : number
-  requirementId : number | null
+    id: number,
+    orderId: number
+    requirementId: number | null
 
-  fileId : number
-  File  :{key : string, url : string}
-  fieldType : FieldType
-  data : string | null
+    fileId: number
+    File: { key: string, url: string } | null
+    fieldType: FieldType
+    data: string | null,
+    requirement : Requirement | null
 }
 
-enum FieldType {
-  Text,
-  File,
-  Date,
-  Textarea,
+export enum FieldType {
+    Text = "Text",
+    File = "File",
+    Date = "Date",
+    Textarea = "Textarea",
 }
 
 export interface IOrder {
@@ -110,16 +111,31 @@ export interface IOrder {
 
     createdAt: Date
     updatedAt: Date
+
+    payment : TPayment
 }
 
 export interface DocumentService {
-  id  : number
+    id: number
+    name: string
+    price: number
+    description: string | null
+    requirements: Requirement[]
+    icon: String | null
+    category: ServiceCategory
+}
+
+interface Requirement {
+  id : number
+  serviceId : number
   name : string
-  price : number
-  description : string | null
-  requirements : string[]
-  icon        : String | null
-  category : ServiceCategory
+  bnName : string
+  fieldType : FieldType
+  required : boolean
+
+  field_name : string
+
+  service : DocumentService
 }
 
 export enum ServiceCategory {
@@ -243,7 +259,7 @@ export interface IProduct {
 }
 
 export interface Icontact {
-    _id: string
+    id: string
     firstName: string;
     lastName: string;
     email: string;
@@ -252,19 +268,5 @@ export interface Icontact {
     isReplied: boolean;
     reply_message: null | string,
     replied_At: Date
-}
-
-export interface IReport {
-    _id: string,
-    product: IProduct,
-    user: IUser,
-    reason: string,
-    status: "pending" | "resolved",
-    createdAt: Date
-}
-
-export interface IBrand {
-    _id: string,
-    name: string,
-    status: "pending" | "approved" | "rejected"
+    createdAt : Date
 }

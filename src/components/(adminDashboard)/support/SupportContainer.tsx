@@ -1,13 +1,11 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { Button, Form, FormProps, Input, Modal, Pagination, Table, TableColumnsType, Tag } from 'antd';
-import { useAllContactsQuery, useReplyContactsMutation } from '@/redux/api/contact.api';
+import React, { useState } from 'react';
+import { Button, Input, Modal, Pagination, Table, TableColumnsType } from 'antd';
+import { useAllContactsQuery } from '@/redux/api/contact.api';
 import { Eye, Search } from 'lucide-react';
 import { Icontact } from '@/redux/types';
 import moment from 'moment';
 import { RiCloseLargeLine } from 'react-icons/ri';
-import { ImSpinner3 } from 'react-icons/im';
-import { toast } from 'sonner';
 
 const SupportContainer = () => {
     const [page, setPage] = useState(1);
@@ -29,9 +27,7 @@ const SupportContainer = () => {
             title: "Full Name",
             dataIndex: "firstName",
             render: (text, record) => (
-
                 <p>{text + " " + (record?.lastName ?? "")}</p>
-
             ),
         },
         {
@@ -47,14 +43,7 @@ const SupportContainer = () => {
             },
         },
         {
-            title: "Status",
-            dataIndex: "isReplied",
-            render(value) {
-                return <Tag color={value ? "green" : "yellow"}>{value ? "Replied" : "Not Replied"}</Tag>
-            },
-        },
-        {
-            title: "Join Date",
+            title: "Date",
             dataIndex: "createdAt",
             render: (value) => moment(value).format("MMMM Do YYYY, h:mm a"),
         },
@@ -79,27 +68,27 @@ const SupportContainer = () => {
     ];
 
     return (
-        <div className="bg-section-bg rounded-md shadow-md border border-main-color">
+        <div>
+
             <div className="flex justify-between items-center p-5 rounded-t-xl">
-                <h1 className="  text-xl text-text-color font-semibold">Support messages</h1>
-
-                <Input
-                    className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
-                    placeholder="Search..."
-                    onChange={(e) => setSearchText(e?.target?.value)}
-                    prefix={<Search size={20} color="var(--color-main)"></Search>}
-                ></Input>
-
+                <h1 className="  text-xl text-text-color font-semibold">Contacts</h1>
+                <div className="flex flex-row gap-x-2 items-center">
+                    <Input
+                        className="!w-[250px] lg:!w-[350px] !py-2 !bg-white  placeholder:text-white"
+                        placeholder="Search..."
+                        onChange={(e) => setSearchText(e?.target?.value)}
+                        prefix={<Search size={20} color="var(--color-main)"></Search>}
+                    ></Input>
+                </div>
             </div>
 
-            <div className="">
-
+            <div className="bg-white rounded-md border border-stroke">
                 <Table<Icontact>
                     columns={columns}
                     dataSource={data?.data?.data}
                     loading={isLoading || isFetching}
                     pagination={false}
-                    rowKey={(record) => record?._id}
+                    rowKey={(record) => record?.id}
                     footer={() =>
                         <Pagination defaultCurrent={page} total={data?.data?.meta?.total} pageSize={limit} align="end" showSizeChanger={false} onChange={(page) => setPage(page)} />
                     }
@@ -107,6 +96,7 @@ const SupportContainer = () => {
                 ></Table>
 
             </div>
+
 
 
             <Modal
@@ -144,57 +134,13 @@ const SupportContainer = () => {
 
 export default SupportContainer;
 
-type FieldType = {
-    message: string,
-}
-
 const MessageView = ({ contact }: { contact: Icontact }) => {
-    const [handlereplyApi, {isLoading}] = useReplyContactsMutation();
 
-    const [form] = Form.useForm<FieldType>();
-
-    const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-        try {
-            const res = await handlereplyApi({id : contact?._id, body: values}).unwrap();
-            toast.success('Replied successfully');
-        } catch (err: any) {
-            toast.error(err?.data?.message || 'Something went wrong, try again');
-        }
-    }
-
-    useEffect(() => {
-        form.setFieldsValue({
-            message: contact?.reply_message || "",
-        });
-    }, [contact])
 
     return (
-        <Form
-            name="basic"
-            initialValues={{ remember: true }}
-            form={form}
-            onFinish={onFinish}
-            autoComplete="off"
-            layout="vertical"
-            style={{ width: "465px" }}
-        >
-
-            <div className='px-5 py-4 border border-gray-300 rounded-md mb-5'>
-                <p>{contact?.description}</p>
-            </div>
-
-            <Form.Item<FieldType>
-                name="message"
-                label="Reply Message"
-                rules={[{ required: true, message: "Reply message required" }]}
-            >
-                <Input.TextArea size="large" rows={4} disabled={contact?.isReplied} />
-            </Form.Item>
-
-            <Button disabled={isLoading || contact?.isReplied} type="primary" htmlType="submit" size="large" block icon={isLoading ? <ImSpinner3 className="animate-spin size-5 text-main-color" /> : <></>} iconPosition="end">
-                Submit
-            </Button>
-
-        </Form>
+        <div className='border border-stroke p-4'>
+            <h4 className='text-lg font-medium'>Message</h4>
+            <p className='text-sm mt-1 text-gray-900'>{contact?.description}</p>
+        </div>
     )
 }

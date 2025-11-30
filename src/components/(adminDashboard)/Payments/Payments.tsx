@@ -70,7 +70,6 @@ const PaymentList = () => {
 
                 <div className="flex justify-between items-center p-5 rounded-t-xl">
                     <h1 className="  text-xl text-text-color font-semibold">Payments</h1>
-
                     <div className="flex flex-row gap-x-2 items-center">
 
                         <Select
@@ -104,7 +103,6 @@ const PaymentList = () => {
                             prefix={<Search size={20} color="var(--color-main)"></Search>}
                         ></Input>
                     </div>
-
                 </div>
 
                 <div className="bg-white rounded-md border border-stroke">
