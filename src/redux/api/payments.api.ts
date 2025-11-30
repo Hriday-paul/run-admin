@@ -1,4 +1,4 @@
-import { IBrand, IMeta, TPayment } from "../types";
+import {IMeta, TPayment } from "../types";
 import baseApi from "./baseApi";
 
 const PaymentsApi = baseApi.injectEndpoints({
