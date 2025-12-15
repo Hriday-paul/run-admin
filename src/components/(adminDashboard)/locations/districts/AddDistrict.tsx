@@ -59,7 +59,8 @@ const AddDistrictForm = () => {
         try {
             const res = await handleAdd(values).unwrap();
             toast.success('New District added successfully');
-            form.resetFields();
+            // form.resetFields();
+            form.setFieldsValue({name : undefined})
         } catch (err: any) {
             toast.error(err?.data?.message || 'Something went wrong, try again');
         }
