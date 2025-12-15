@@ -1,4 +1,4 @@
-import { useAllDivisionsQuery, useDistrictsByDivisionQuery } from '@/redux/api/locations.api';
+import { useAllDivisionsQuery, useAreasByDivDistrictQuery, useDistrictsByDivisionQuery } from '@/redux/api/locations.api';
 import { useAddVendorMutation } from '@/redux/api/users.api';
 import { Button, Form, FormProps, Input, InputNumber, Modal, Select } from 'antd'
 import React, { useState } from 'react'
@@ -55,8 +55,9 @@ type FieldType = {
 
     address: string | null,
 
-    division: string | null,
-    district: string | null,
+    divisionId: string | null,
+    districtId: string | null,
+    areaId: string | null,
     upzilla: string | null,
 
     facebook: string | null
@@ -74,7 +75,10 @@ const AddVendorForm = () => {
 
     const { isLoading: divisionloading, data, isSuccess, } = useAllDivisionsQuery();
     const [division, setDivision] = useState<any>(null);
-    const { isLoading: districtLoad, isFetching: districtFetch, data: districts, isSuccess: districtSuccess } = useDistrictsByDivisionQuery({ divisionId: division ? division?.id : 1 });
+    const [district, setDistrict] = useState<any>(null);
+    const { isLoading: districtLoad, isFetching: districtFetch, data: districts, isSuccess: districtSuccess } = useDistrictsByDivisionQuery({ division: division });
+
+    const { isLoading: areaLoad, isFetching: areaFetch, data: areas, isSuccess: areaSuccess } = useAreasByDivDistrictQuery({ divisionId: division, district: district });
 
     const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
         try {
@@ -147,7 +151,7 @@ const AddVendorForm = () => {
             </div>
 
             <div className='grid grid-cols-2 gap-x-5'>
-                <Form.Item<FieldType> name="division" label={"Division"}
+                <Form.Item<FieldType> name="divisionId" label={"Division"}
                 // rules={[{ required: true, message: "Pet Gender is required" }]}
                 >
                     <Select
@@ -158,16 +162,16 @@ const AddVendorForm = () => {
                         placeholder="Select Division"
                         className='!w-full'
                         onChange={(e) => {
-                            setDivision(data?.data?.divisions?.find(i => i?.name == e))
-                            form.setFieldsValue({ district: null })
+                            setDivision(e)
+                            form.setFieldsValue({ districtId: null })
                         }}
                         loading={divisionloading}
                         options={isSuccess ? data?.data?.divisions?.map(i => {
-                            return { label: i?.name, value: i?.name }
+                            return { label: i?.name, value: i?.id }
                         }) : []}
                     />
                 </Form.Item>
-                <Form.Item<FieldType> name="district" label={"District"}
+                <Form.Item<FieldType> name="districtId" label={"District"}
                 // rules={[{ required: true, message: "Pet Gender is required" }]}
                 >
                     <Select
@@ -175,15 +179,36 @@ const AddVendorForm = () => {
                         // style={{ width: 120 }}
                         // onChange={handleChange}
                         size="large"
-                        placeholder="Select District"
+                        placeholder="Select Area"
                         className='!w-full'
+                        onChange={(e) => {
+                            setDistrict(e)
+                            form.setFieldsValue({ areaId: null })
+                        }}
                         loading={districtLoad || districtFetch}
                         options={districtSuccess ? districts?.data?.map(i => {
-                            return { label: i?.name, value: i?.name }
+                            return { label: i?.name, value: i?.id }
                         }) : []}
                     />
                 </Form.Item>
             </div>
+
+            <Form.Item<FieldType> name="areaId" label={"Area"}
+            // rules={[{ required: true, message: "Pet Gender is required" }]}
+            >
+                <Select
+                    // defaultValue="lucy"
+                    // style={{ width: 120 }}
+                    // onChange={handleChange}
+                    size="large"
+                    placeholder="Select Area"
+                    className='!w-full'
+                    loading={areaLoad || areaFetch}
+                    options={areaSuccess ? areas?.data?.map(i => {
+                        return { label: i?.name, value: i?.id }
+                    }) : []}
+                />
+            </Form.Item>
 
             <div className='grid grid-cols-2 gap-5'>
                 <Form.Item<FieldType>

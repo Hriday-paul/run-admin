@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Cookies } from "react-cookie";
-import { IAdminStats, IMeta, INotification } from '../types';
 import { config } from '@/utils/config';
 import { logoutUser } from '../slices/userSlice';
 
@@ -91,7 +90,7 @@ const baseQueryWithReauth: typeof baseQuery = async (
 
 const baseApi = createApi({
     reducerPath: 'api',
-    tagTypes: ['user', "users", "payments", "orders", "packages", "privacy", "terms", "about", "notification", "stores", "contacts", "reports", "brands"],
+    tagTypes: ['user', "users", "payments", "orders", "packages", "privacy", "terms", "about", "notification", "contacts", "reports", "brands", "divisions", "districts", "areas"],
     baseQuery: baseQueryWithReauth,
     endpoints: (builder) => ({
 

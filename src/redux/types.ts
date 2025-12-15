@@ -40,20 +40,23 @@ export type AdManager = {
 }
 
 export interface IDivision {
-    "id": number,
-    "name": string,
-    "bn_name": string,
-    "lat": number,
-    "long": number
+    id: number,
+    name: string
+    bName: string | null
 }
 
 export interface IDistrict {
-    "id": number,
-    "division_id": number,
-    "name": string,
-    "bn_name": string,
-    "lat": number,
-    "long": number
+    id: number,
+    name: string
+    bName: string | null
+    division : IDivision
+}
+export interface IArea {
+    id: number,
+    name: string
+    bName: string | null
+    division : IDivision
+    district : IDistrict
 }
 
 export type TPayment = {

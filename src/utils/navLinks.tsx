@@ -1,5 +1,5 @@
 import { RiDashboardHorizontalFill } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoLocationOutline, IoSettingsOutline } from "react-icons/io5";
 import Link from "next/link";
 import { LuPackage, LuUsers } from "react-icons/lu";
 import { Bell, BookOpen, Dot, MessageCircleMore } from "lucide-react";
@@ -48,6 +48,28 @@ export const navLinks = [
     icon: <Bell size={24} />,
     label: <Link href={"/notifications"}>Notifications</Link>,
   },
+  {
+      key: "locations",
+      icon: <IoLocationOutline size={21} strokeWidth={2} />,
+      label: "Locations",
+      children: [
+        {
+          key: "division",
+          icon: <Dot size={21} strokeWidth={2} />,
+          label: <Link href={"/locations/division"}>Divisions</Link>,
+        },
+        {
+          key: "district",
+          icon: <Dot size={21} strokeWidth={2} />,
+          label: <Link href={"/locations/district"}>Districts</Link>,
+        },
+        {
+          key: "area",
+          icon: <Dot size={21} strokeWidth={2} />,
+          label: <Link href={"/locations/area"}>Areas</Link>,
+        },
+      ]
+    },
   {
     key: "settings",
     icon: <IoSettingsOutline size={24} />,
