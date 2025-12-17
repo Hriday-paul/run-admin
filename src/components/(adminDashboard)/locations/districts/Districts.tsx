@@ -1,12 +1,15 @@
 "use client"
 
-import { useDistrictsQuery } from '@/redux/api/locations.api';
-import { IDistrict, IDivision } from '@/redux/types';
-import { Table, TableColumnsType } from 'antd';
+import { useDistrictsQuery, useDltDistrictMutation } from '@/redux/api/locations.api';
+import { IDistrict } from '@/redux/types';
+import { Button, Popconfirm, Table, TableColumnsType, Tooltip } from 'antd';
 import React from 'react'
 import AddDistrict from './AddDistrict';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { toast } from 'sonner';
 
 function Districts() {
+     const [DltDis] = useDltDistrictMutation();
     const { data, isLoading, isFetching } = useDistrictsQuery();
 
     const columns: TableColumnsType<IDistrict> = [
@@ -24,49 +27,43 @@ function Districts() {
             dataIndex: ["division", "name"],
         },
 
-        // {
-        //   title: "Action",
-        //   dataIndex: "action",
-        //   render: (_, record) => (
-        //     <div className="flex gap-2 ">
+        {
+            title: "Action",
+            dataIndex: "action",
+            render: (_, record) => (
+                <div className="flex gap-2 ">
 
-        //       <Popconfirm
-        //         title="Delete the Division"
-        //         description={`Are you sure to delete this division?`}
-        //         onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
-        //         okText="Yes"
-        //         cancelText="No"
-        //       >
-        //         <Tooltip title={record?.auth?.status ? "Block" : "Unblock"}>
-        //           <button>
-        //             {record?.auth?.status ? <MdBlockFlipped size={22} color="green" /> : <CgUnblock size={22} color="#CD0335" />}
-        //           </button>
-        //         </Tooltip>
-        //       </Popconfirm>
+                    <Popconfirm
+                        title="Delete the District"
+                        description={`All users, ads, areas will lost related by this district`}
+                        onConfirm={() => handleDltDistrict(record?.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Tooltip title={"Delete District"}>
+                            <Button size='small' type='default'>
+                                <AiOutlineDelete />
+                            </Button>
+                        </Tooltip>
+                    </Popconfirm>
 
-
-
-
-        //     </div>
-        //   ),
-        // },
+                </div>
+            ),
+        },
     ];
 
-    // Block user handler
-    //   const handleDltDivision = async (id: number, status: boolean) => {
-    //     try {
-    //       if (status) {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       } else {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       }
+    // dlt handler
+    const handleDltDistrict = async (id: number) => {
+        try {
 
-    //       toast.success(`Vendor ${status ? "unblock" : "block"} successfully`)
+            await DltDis({ id }).unwrap();
 
-    //     } catch (err: any) {
-    //       toast.error(err?.data?.message || "something went wrong, try again")
-    //     }
-    //   };
+            toast.success(`District deleted successfully`)
+
+        } catch (err: any) {
+            toast.error(err?.data?.message || "something went wrong, try again")
+        }
+    };
 
     return (
         <div>

@@ -18,6 +18,13 @@ const LocationApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['divisions']
         }),
+        dltDivision: builder.mutation<{ message: string }, {id : number}>({
+            query: ({id}) => ({
+                url: `/locations/divisions/${id}`,
+                method : "DELETE",
+            }),
+            invalidatesTags: ['divisions']
+        }),
 
         districtsByDivision: builder.query<{ message: string, data: IDistrict[] }, { }>({
             query: (query) => ({
@@ -32,6 +39,13 @@ const LocationApi = baseApi.injectEndpoints({
                 url: `/locations/districts/all`,
             }),
             providesTags: ['districts']
+        }),
+        dltDistrict: builder.mutation<{ message: string }, {id : number}>({
+            query: ({id}) => ({
+                url: `/locations/districts/${id}`,
+                method : "DELETE",
+            }),
+            invalidatesTags: ['districts']
         }),
 
         addDistrict: builder.mutation<{ message: string }, any>({
@@ -58,6 +72,14 @@ const LocationApi = baseApi.injectEndpoints({
             providesTags: ['areas']
         }),
 
+        dltArea: builder.mutation<{ message: string }, {id : number}>({
+            query: ({id}) => ({
+                url: `/locations/areas/${id}`,
+                method : "DELETE",
+            }),
+            invalidatesTags: ['areas']
+        }),
+
         addArea: builder.mutation<{ message: string }, any>({
             query: (body) => ({
                 url: '/locations/areas',
@@ -70,4 +92,4 @@ const LocationApi = baseApi.injectEndpoints({
     })
 })
 
-export const { useAllDivisionsQuery, useDistrictsByDivisionQuery, useDistrictsQuery, useAreasByDivDistrictQuery, useAddDistrictMutation, useAddDivisionMutation, useAddAreaMutation, useAreasQuery } = LocationApi;
+export const { useAllDivisionsQuery, useDistrictsByDivisionQuery, useDistrictsQuery, useAreasByDivDistrictQuery, useAddDistrictMutation, useAddDivisionMutation, useAddAreaMutation, useAreasQuery, useDltAreaMutation, useDltDistrictMutation, useDltDivisionMutation } = LocationApi;

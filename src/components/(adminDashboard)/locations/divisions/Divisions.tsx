@@ -1,12 +1,15 @@
 "use client"
 
-import { useAllDivisionsQuery } from '@/redux/api/locations.api';
+import { useAllDivisionsQuery, useDltDivisionMutation } from '@/redux/api/locations.api';
 import { IDivision } from '@/redux/types';
-import { Table, TableColumnsType } from 'antd';
+import { Button, Popconfirm, Table, TableColumnsType, Tooltip } from 'antd';
 import React from 'react'
 import AddDivision from './AddDivision';
+import { toast } from 'sonner';
+import { AiOutlineDelete } from "react-icons/ai";
 
 function Divisions() {
+    const [DltDiv] = useDltDivisionMutation();
     const { data, isLoading, isFetching } = useAllDivisionsQuery();
 
     const columns: TableColumnsType<IDivision> = [
@@ -20,49 +23,43 @@ function Divisions() {
             dataIndex: "name",
         },
 
-        // {
-        //   title: "Action",
-        //   dataIndex: "action",
-        //   render: (_, record) => (
-        //     <div className="flex gap-2 ">
+        {
+            title: "Action",
+            dataIndex: "action",
+            render: (_, record) => (
+                <div className="flex gap-2 ">
 
-        //       <Popconfirm
-        //         title="Delete the Division"
-        //         description={`Are you sure to delete this division?`}
-        //         onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
-        //         okText="Yes"
-        //         cancelText="No"
-        //       >
-        //         <Tooltip title={record?.auth?.status ? "Block" : "Unblock"}>
-        //           <button>
-        //             {record?.auth?.status ? <MdBlockFlipped size={22} color="green" /> : <CgUnblock size={22} color="#CD0335" />}
-        //           </button>
-        //         </Tooltip>
-        //       </Popconfirm>
+                    <Popconfirm
+                        title="Delete the Division"
+                        description={`All users, ads, areas, districts will lost related by this division`}
+                        onConfirm={() => handleDltDivision(record?.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Tooltip title={"Delete Division"}>
+                            <Button size='small' type='default'>
+                                <AiOutlineDelete />
+                            </Button>
+                        </Tooltip>
+                    </Popconfirm>
 
-
-
-
-        //     </div>
-        //   ),
-        // },
+                </div>
+            ),
+        },
     ];
 
     // Block user handler
-    //   const handleDltDivision = async (id: number, status: boolean) => {
-    //     try {
-    //       if (status) {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       } else {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       }
+    const handleDltDivision = async (id: number) => {
+        try {
 
-    //       toast.success(`Vendor ${status ? "unblock" : "block"} successfully`)
+            await DltDiv({ id }).unwrap();
 
-    //     } catch (err: any) {
-    //       toast.error(err?.data?.message || "something went wrong, try again")
-    //     }
-    //   };
+            toast.success(`Division deleted successfully`)
+
+        } catch (err: any) {
+            toast.error(err?.data?.message || "something went wrong, try again")
+        }
+    };
 
     return (
         <div>

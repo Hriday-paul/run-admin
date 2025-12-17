@@ -23,7 +23,7 @@ const UsersApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["users"]
         }),
-        
+
         addVendor: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, any>({
             query: (body) => ({
                 url: `/users/add-vendor`,
@@ -32,11 +32,27 @@ const UsersApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["users"]
         }),
-        vendorAdManage: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, {id : number, body : AdManager}>({
-            query: ({body, id}) => ({
+        vendorAdManage: builder.mutation<{ message: string, data: { _id: string, name: string }[] }, { id: number, body: AdManager }>({
+            query: ({ body, id }) => ({
                 url: `/users/manage-access/${id}`,
                 method: "PUT",
                 body
+            }),
+            invalidatesTags: ["users"]
+        }),
+
+        transferRole: builder.mutation<{ message: string}, { userId: number, role: "User" | "Vendor" }>({
+            query: (payload) => ({
+                url: `/users/swap-role`,
+                method: "POST",
+                body : payload
+            }),
+            invalidatesTags: ["users"]
+        }),
+        dltUser: builder.mutation<{ message: string}, { userId: number}>({
+            query: ({userId}) => ({
+                url: `/delete-account/${userId}`,
+                method: "DELETE",
             }),
             invalidatesTags: ["users"]
         }),
@@ -45,4 +61,4 @@ const UsersApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useAllusersQuery, useBlock_unblockMutation, useAddVendorMutation, useVendorAdManageMutation} = UsersApi;
+export const { useAllusersQuery, useBlock_unblockMutation, useAddVendorMutation, useVendorAdManageMutation, useTransferRoleMutation, useDltUserMutation } = UsersApi;

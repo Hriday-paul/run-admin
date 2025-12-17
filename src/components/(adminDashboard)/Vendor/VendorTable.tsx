@@ -1,6 +1,7 @@
 "use client";
 import {
   Button,
+  Dropdown,
   Image,
   Input,
   Pagination,
@@ -14,15 +15,19 @@ import { CgUnblock } from "react-icons/cg";
 import { Search } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
-import { useAllusersQuery, useBlock_unblockMutation } from "@/redux/api/users.api";
+import { useAllusersQuery, useBlock_unblockMutation, useDltUserMutation, useTransferRoleMutation } from "@/redux/api/users.api";
 import { IUser } from "@/redux/types";
 import moment from "moment";
 import { MdBlockFlipped } from "react-icons/md";
 import AddVendor from "./AddVendor";
 import VendorManageSubs from "./VendorManageSubs";
+import { GoDot } from "react-icons/go";
+import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 const VendorTable = () => {
   const [handleStatusUpdate] = useBlock_unblockMutation();
+  const [handleRoleUpdate] = useTransferRoleMutation();
+  const [handleDlt] = useDltUserMutation();
   const [page, setPage] = useState(1);
   const limit = 10
   const [searchText, setSearchText] = useState("");
@@ -94,25 +99,67 @@ const VendorTable = () => {
             />
           </Link> */}
 
-          <Popconfirm
-            title="Block the vendor"
-            description={`Are you sure to ${record?.auth?.status ? "block" : "unblock"} this vendor?`}
-            onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Tooltip title={record?.auth?.status ? "Block" : "Unblock"}>
-              <button>
-                {record?.auth?.status ? <MdBlockFlipped size={22} color="green" /> : <CgUnblock size={22} color="#CD0335" />}
-              </button>
-            </Tooltip>
-          </Popconfirm>
-
-          <Button size='small' type='default' onClick={() => {
-            setDefaultData(record)
-            setOpen(true)
-          }}>Manage</Button>
-
+          <Dropdown trigger={['click']} menu={{
+            items: [
+              {
+                label: <Popconfirm
+                  description={`User can not be access his vendor account`}
+                  onConfirm={() => handleTransferRole(record?.id)}
+                  okText="Yes"
+                  cancelText="No"
+                  title="Be sure transfer to the Vendor ?"
+                // onConfirm={() => message.info("delete")}
+                >
+                  Swap to User
+                </Popconfirm>,
+                key: '1',
+                icon: <GoDot className=' size-4' />,
+              },
+              {
+                label: <Popconfirm
+                  title="Block the vendor"
+                  description={`Are you sure want to ${record?.auth?.status ? "block" : "unblock"} this vendor?`}
+                  onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Tooltip title={record?.auth?.status ? "Block" : "Unblock"}>
+                    <button>
+                      {record?.auth?.status ? "Block" : "Unblock"}
+                    </button>
+                  </Tooltip>
+                </Popconfirm>,
+                key: '2',
+                icon: <GoDot className='size-4' />,
+              },
+              {
+                label: <button onClick={() => {
+                  setDefaultData(record)
+                  setOpen(true)
+                }}
+                >Manage Sub.</button>,
+                key: '5',
+                icon: <GoDot className=' size-4' />,
+              },
+              {
+                label: <Popconfirm
+                  description={`All data will be lost, by this vendor.`}
+                  onConfirm={() => handleDltUser(record?.id)}
+                  okText="Yes"
+                  cancelText="No"
+                  title="Be sure Delete the Vendor ?"
+                  className="text-red-500"
+                // onConfirm={() => message.info("delete")}
+                >
+                  Delete
+                </Popconfirm>,
+                key: '3',
+                icon: <GoDot className=' size-4' />,
+              },
+            ]
+          }}>
+            <Button size='small' type='primary'><HiOutlineDotsHorizontal size={20} /></Button>
+          </Dropdown>
 
         </div>
       ),
@@ -134,6 +181,29 @@ const VendorTable = () => {
       toast.error(err?.data?.message || "something went wrong, try again")
     }
   };
+
+  const handleDltUser = async (id: number) => {
+    try {
+
+      await handleDlt({ userId: id }).unwrap();
+
+      toast.success(`User deleted successfully`)
+
+    } catch (err: any) {
+      toast.error(err?.data?.message || "something went wrong, try again")
+    }
+  };
+
+  const handleTransferRole = async (userId: number) => {
+    try {
+      await handleRoleUpdate({ userId, role: "User" }).unwrap();
+
+      toast.success(`Role updated successfully`)
+
+    } catch (err: any) {
+      toast.error(err?.data?.message || "something went wrong, try again")
+    }
+  }
 
   return (
     <div>

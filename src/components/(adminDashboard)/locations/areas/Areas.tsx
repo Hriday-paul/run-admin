@@ -1,12 +1,15 @@
 "use client"
 
-import { useAreasQuery } from '@/redux/api/locations.api';
+import { useAreasQuery, useDltAreaMutation } from '@/redux/api/locations.api';
 import { IArea, IDistrict } from '@/redux/types';
-import { Table, TableColumnsType } from 'antd';
+import { Button, Popconfirm, Table, TableColumnsType, Tooltip } from 'antd';
 import React from 'react'
 import AddArea from './AddArea';
+import { toast } from 'sonner';
+import { AiOutlineDelete } from 'react-icons/ai';
 
 function Areas() {
+     const [DltArea] = useDltAreaMutation();
     const { data, isLoading, isFetching } = useAreasQuery({});
 
     const columns: TableColumnsType<IArea> = [
@@ -28,49 +31,43 @@ function Areas() {
             dataIndex: ["division", "name"],
         },
 
-        // {
-        //   title: "Action",
-        //   dataIndex: "action",
-        //   render: (_, record) => (
-        //     <div className="flex gap-2 ">
+        {
+            title: "Action",
+            dataIndex: "action",
+            render: (_, record) => (
+                <div className="flex gap-2 ">
 
-        //       <Popconfirm
-        //         title="Delete the Division"
-        //         description={`Are you sure to delete this division?`}
-        //         onConfirm={() => handleBlockUser(record?.id, !record?.auth?.status)}
-        //         okText="Yes"
-        //         cancelText="No"
-        //       >
-        //         <Tooltip title={record?.auth?.status ? "Block" : "Unblock"}>
-        //           <button>
-        //             {record?.auth?.status ? <MdBlockFlipped size={22} color="green" /> : <CgUnblock size={22} color="#CD0335" />}
-        //           </button>
-        //         </Tooltip>
-        //       </Popconfirm>
+                    <Popconfirm
+                        title="Delete the Area"
+                        description={`All users, ads will lost related by this area`}
+                        onConfirm={() => handleDltArea(record?.id)}
+                        okText="Yes"
+                        cancelText="No"
+                    >
+                        <Tooltip title={"Delete Area"}>
+                            <Button size='small' type='default'>
+                                <AiOutlineDelete />
+                            </Button>
+                        </Tooltip>
+                    </Popconfirm>
 
-
-
-
-        //     </div>
-        //   ),
-        // },
+                </div>
+            ),
+        },
     ];
 
     // Block user handler
-    //   const handleDltDivision = async (id: number, status: boolean) => {
-    //     try {
-    //       if (status) {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       } else {
-    //         await handleStatusUpdate({ userId: id, status }).unwrap();
-    //       }
+    const handleDltArea = async (id: number) => {
+        try {
 
-    //       toast.success(`Vendor ${status ? "unblock" : "block"} successfully`)
+            await DltArea({ id }).unwrap();
 
-    //     } catch (err: any) {
-    //       toast.error(err?.data?.message || "something went wrong, try again")
-    //     }
-    //   };
+            toast.success(`Area deleted successfully`)
+
+        } catch (err: any) {
+            toast.error(err?.data?.message || "something went wrong, try again")
+        }
+    };
 
     return (
         <div>
