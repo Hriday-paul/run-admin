@@ -51,7 +51,7 @@ const UsersApi = baseApi.injectEndpoints({
         }),
         dltUser: builder.mutation<{ message: string}, { userId: number}>({
             query: ({userId}) => ({
-                url: `/delete-account/${userId}`,
+                url: `/users/delete-account/${userId}`,
                 method: "DELETE",
             }),
             invalidatesTags: ["users"]
