@@ -49,14 +49,14 @@ export interface IDistrict {
     id: number,
     name: string
     bName: string | null
-    division : IDivision
+    division: IDivision
 }
 export interface IArea {
     id: number,
     name: string
     bName: string | null
-    division : IDivision
-    district : IDistrict
+    division: IDivision
+    district: IDistrict
 }
 
 export type TPayment = {
@@ -87,7 +87,7 @@ export interface OrderFields {
     File: { key: string, url: string } | null
     fieldType: FieldType
     data: string | null,
-    requirement : Requirement | null
+    requirement: Requirement | null
 }
 
 export enum FieldType {
@@ -107,7 +107,8 @@ export interface IOrder {
     fields: OrderFields[] // uploaded files by the user
     isPaid: boolean
 
-    otherFiles: string[]
+    otherFiles: { File: { key: string, url: string } }[],
+    message : string | null
 
     serviceId: number
     service: DocumentService
@@ -115,7 +116,7 @@ export interface IOrder {
     createdAt: Date
     updatedAt: Date
 
-    payment : TPayment
+    payment: TPayment
 }
 
 export interface DocumentService {
@@ -129,16 +130,16 @@ export interface DocumentService {
 }
 
 interface Requirement {
-  id : number
-  serviceId : number
-  name : string
-  bnName : string
-  fieldType : FieldType
-  required : boolean
+    id: number
+    serviceId: number
+    name: string
+    bnName: string
+    fieldType: FieldType
+    required: boolean
 
-  field_name : string
+    field_name: string
 
-  service : DocumentService
+    service: DocumentService
 }
 
 export enum ServiceCategory {
@@ -271,5 +272,5 @@ export interface Icontact {
     isReplied: boolean;
     reply_message: null | string,
     replied_At: Date
-    createdAt : Date
+    createdAt: Date
 }
