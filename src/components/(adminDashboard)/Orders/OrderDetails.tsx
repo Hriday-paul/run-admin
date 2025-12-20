@@ -49,7 +49,7 @@ const OrderDetails = ({ defaultData, setOpen, open }: { defaultData: IOrder, ope
                     {/* Other files----- */}
                     <div className='p-5 border border-gray-200 rounded flex flex-col justify-center relative'>
 
-                        <p className="text-lg font-medium mb-2">
+                        <p className="text-base font-medium mb-2">
                             Other Files
                         </p>
                         <div className='flex flex-row gap-5 flex-wrap'>
@@ -83,11 +83,11 @@ const OrderDetails = ({ defaultData, setOpen, open }: { defaultData: IOrder, ope
                     {/* ---------message----------- */}
                     <div className='p-10 border border-gray-200 rounded flex flex-col justify-center relative'>
 
-                        <p className="mt-2.5">
+                        <p className="mt-2.5 font-medium">
                             Message
                         </p>
 
-                        <p className='text-base mt-1'>{defaultData?.message || "N/A"}</p>
+                        <p className='text-sm mt-1'>{defaultData?.message || "N/A"}</p>
                     </div>
 
 
