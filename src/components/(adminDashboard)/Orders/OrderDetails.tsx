@@ -49,7 +49,7 @@ const OrderDetails = ({ defaultData, setOpen, open }: { defaultData: IOrder, ope
                     {/* Other files----- */}
                     <div className='p-5 border border-gray-200 rounded flex flex-col justify-center relative'>
 
-                        <p className="mt-2.5">
+                        <p className="text-lg font-medium mb-2">
                             Other Files
                         </p>
                         <div className='flex flex-row gap-5 flex-wrap'>
@@ -58,9 +58,9 @@ const OrderDetails = ({ defaultData, setOpen, open }: { defaultData: IOrder, ope
                                     return (
                                         <div className='p-5 border border-gray-200 rounded flex flex-col justify-center relative' key={file?.File?.key}>
 
-                                            <FaFileAlt className='text-5xl' />
+                                            <FaFileAlt className='text-6xl' />
 
-                                            <div className='flex flex-row gap-x-2 items-center mt-1.5 justify-center'>
+                                            <div className='flex flex-row gap-x-1 items-center mt-2.5 justify-center'>
                                                 <Link href={file?.File?.url} target='_blank'>
                                                     <Button size='small'>
                                                         <MdOutlineRemoveRedEye />
@@ -87,7 +87,7 @@ const OrderDetails = ({ defaultData, setOpen, open }: { defaultData: IOrder, ope
                             Message
                         </p>
 
-                        <p className='text-lg font-medium mt-1'>{defaultData?.message || "N/A"}</p>
+                        <p className='text-base mt-1'>{defaultData?.message || "N/A"}</p>
                     </div>
 
 
