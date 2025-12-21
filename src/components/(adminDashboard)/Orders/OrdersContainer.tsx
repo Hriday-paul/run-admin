@@ -12,6 +12,8 @@ import { IoMdAttach } from 'react-icons/io';
 import { LuEye } from 'react-icons/lu';
 import OrderDetails from './OrderDetails';
 import UpdateStatus from './UpdateStatus';
+import CompleteOrder from './CompleteOrder';
+import { IoCheckmarkDoneCircleOutline } from 'react-icons/io5';
 
 const OrdersContainer = () => {
     const [page, setPage] = useState(1);
@@ -27,6 +29,7 @@ const OrdersContainer = () => {
     const [orderDetails, setOrderDetails] = useState<null | IOrder>(null);
     const [viewOpen, setViewOpen] = useState(false);
     const [statusUpdateOpen, setStatusUpdateOpen] = useState(false);
+    const [completeOpen, setCompleteOpen] = useState(false);
 
     const handleDropDown = (e: any, data: IOrder) => {
         if (e.key == "1") {
@@ -36,6 +39,10 @@ const OrdersContainer = () => {
         if (e.key == "2") {
             setOrderDetails(data);
             setViewOpen(true)
+        }
+        if (e.key == "3") {
+            setOrderDetails(data);
+            setCompleteOpen(true)
         }
     }
 
@@ -100,11 +107,11 @@ const OrdersContainer = () => {
                                 key: '2',
                                 icon: <LuEye className='size-4' />,
                             },
-                            // {
-                            //     label: 'Attach Documents',
-                            //     key: '3',
-                            //     icon: <IoMdAttach className='size-4' />,
-                            // }
+                            {
+                                label: 'Complete Order',
+                                key: '3',
+                                icon: <IoCheckmarkDoneCircleOutline className='size-4 text-green-600' />,
+                            }
 
                         ],
                         onClick: (e) => handleDropDown(e, record)
@@ -176,6 +183,7 @@ const OrdersContainer = () => {
 
             {orderDetails && <OrderDetails defaultData={orderDetails} open={viewOpen} setOpen={setViewOpen} />}
             {orderDetails && <UpdateStatus defaultData={orderDetails} open={statusUpdateOpen} setOpen={setStatusUpdateOpen} />}
+            {orderDetails && <CompleteOrder defaultData={orderDetails} open={completeOpen} setOpen={setCompleteOpen} />}
 
         </div>
     );

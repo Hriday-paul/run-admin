@@ -108,7 +108,9 @@ export interface IOrder {
     isPaid: boolean
 
     otherFiles: { File: { key: string, url: string } }[],
-    message : string | null
+    message: string | null
+
+    response_list: { name: string, File: { key: string, url: string } }[]
 
     serviceId: number
     service: DocumentService

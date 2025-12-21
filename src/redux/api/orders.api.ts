@@ -28,10 +28,22 @@ const OrderApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ["orders"],
         }),
+
+        completeOrder: builder.mutation<
+            { message: string},
+            {orderId : number, body : any}
+        >({
+            query: ({orderId, body}) => ({
+                url: `/orders/complete/${orderId}`,
+                body,
+                method : "PATCH"
+            }),
+            invalidatesTags: ["orders"],
+        }),
        
 
 
     }),
 });
 
-export const {useAllOrdersQuery, useUpdateOrderStatusMutation} = OrderApi;
+export const {useAllOrdersQuery, useUpdateOrderStatusMutation, useCompleteOrderMutation} = OrderApi;

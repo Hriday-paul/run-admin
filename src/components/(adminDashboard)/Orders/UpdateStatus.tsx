@@ -82,10 +82,10 @@ function UpdateStatus({ setOpen, open, defaultData }: { open: boolean, defaultDa
                                         label: "Processing",
                                         value: "PROCESSING"
                                     },
-                                    {
-                                        label: "Completed",
-                                        value: "COMPLETED"
-                                    },
+                                    // {
+                                    //     label: "Completed",
+                                    //     value: "COMPLETED"
+                                    // },
                                 ]}
                             />
                         </Form.Item>
